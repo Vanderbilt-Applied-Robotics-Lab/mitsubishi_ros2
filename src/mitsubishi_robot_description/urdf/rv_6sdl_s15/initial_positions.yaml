@@ -1,0 +1,18 @@
+# Default initial positions for mitsubishi_robot's ros2_control fake system
+initial_positions:
+  j1: 0.0
+  j2: -1.5
+  j3: 2.75
+  j4: 0.0
+  j5: -0.5
+  j6: 0
+
+
+# for debugging orders
+# initial_positions:
+#   j1: 0.0
+#   j2: 1.0
+#   j3: 2.0
+#   j4: 3.0
+#   j5: 4.0
+#   j6: 5.0

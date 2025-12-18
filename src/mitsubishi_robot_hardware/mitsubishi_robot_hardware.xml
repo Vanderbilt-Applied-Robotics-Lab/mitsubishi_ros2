@@ -1,0 +1,9 @@
+<library path="mitsubishi_robot_hardware">
+    <class name="MitsubishiRobot/RobotSystem"
+           type="MitsubishiRobot::RobotSystem"
+           base_class_type="hardware_interface::SystemInterface">
+        <description>
+            Mitsubishi robot hardware plugin
+        </description>
+    </class>
+</library>

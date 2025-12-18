@@ -1,0 +1,26 @@
+' Version 0.1.09
+' Wait for IP address from client, then open for MXT"9
+' Declare variables
+
+C1$="STORMLAB"               ' Password
+CIP$="ENET:192.168.0.3"
+*BEGIN                       ' Begin program
+Servo off                    ' In case it is on
+Close #1                     ' In case it is open
+Close #2                     ' In case it is open
+Open "COM1:" As #2           ' Open TCP/IP on port 10003 and wait for password
+Input #2, C2$
+If C2$ = C1$ Then            ' If password is valid
+Open CIP$ As #1              ' Open UDP socket
+Servo On                     ' Turn servo on
+Print #2, 1                  ' Tell the client initialization has succeeded
+Ovrd 5                       ' Use reduced speed
+Mxt 1,1,100                  ' Start MXT in Joint mode
+Dly 1                        ' Wait for a second
+Close #1
+Servo Off                    ' Done with servo, so turn it off)9
+Else                         ' Otherwise, print an error and go back to beggining
+Print #2, -1
+EndIf
+GoTo *Begin                  ' Go back to beginning
+End

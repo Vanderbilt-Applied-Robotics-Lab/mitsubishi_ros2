@@ -1,0 +1,250 @@
+<?xml version="1.0"?>
+<robot name="rv_3s_urdf" xmlns:xacro="http://ros.org/wiki/xacro">
+<!-- <xacro:macro name="rv_3s_urdf" xmlns:xacro="http://ros.org/wiki/xacro"> -->
+  <!-- Constants -->
+  <xacro:property name="PI" value="3.1415926535897931" />
+  <xacro:property name="mass" value="0.1" />
+  <xacro:property name="offset_from_limit" value="5.0" />
+  <xacro:property name="joint_velocity" value="5.0" />
+  <xacro:property name="default_scale" value="0.001 0.001 0.001" />
+  <xacro:property name="damping" value="10.0" />
+  <xacro:property name="package_name" value="mitsubishi_robot_description" />
+
+  <!-- Colors -->
+  <material name="ivory">
+    <color rgba="1.0 1.0 ${240/255} 1.0" />
+  </material>
+
+  <!-- Link Definitions -->
+  <link name="world"/>
+
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://${package_name}/meshes/rv_3s/visual/base.stl" scale="${default_scale}" />
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <material name="ivory"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://${package_name}/meshes/rv_3s/collision/base.stl" scale="${default_scale}" />
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="${mass}" />
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0" />
+    </inertial>
+  </link>
+
+  <joint name="base_joint" type="fixed">
+    <parent link="world" />
+    <child link="base_link" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </joint>
+
+  <link name="shoulder_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://${package_name}/meshes/rv_3s/visual/shoulder.stl" scale="${default_scale}" />
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <material name="ivory"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://${package_name}/meshes/rv_3s/collision/shoulder.stl" scale="${default_scale}" />
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="${mass}" />
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0" />
+    </inertial>    
+  </link>
+
+  <joint name="base_to_shoulder_joint" type="revolute"> <!-- J1 -->
+    <parent link="base_link" />
+    <child link="shoulder_link" />
+    <axis xyz="0 0 1" />
+    <origin xyz="0 0 0.255" rpy="0 0 0" />
+    <dynamics damping="${damping}" friction="0.1" />
+    <limit effort="1000.0" lower="${(-170+offset_from_limit)*PI/180}" upper="${(170-offset_from_limit)*PI/180}"
+      velocity="${joint_velocity}" />
+  </joint>
+
+  <link name="arm_1_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://${package_name}/meshes/rv_3s/visual/arm1.stl" scale="${default_scale}" />
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <!-- <origin xyz="0.095 0.108 0.095" rpy="-${PI/2} 0 -${PI/2}"/> -->
+
+      <material name="ivory"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://${package_name}/meshes/rv_3s/collision/arm1.stl" scale="${default_scale}" />
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="${mass}" />
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0" />
+    </inertial>    
+  </link>
+
+  <joint name="shoulder_to_arm_1_joint" type="revolute">
+    <parent link="shoulder_link" />
+    <child link="arm_1_link" />
+    <axis xyz="0 0 1" />
+    <origin xyz="0.095 0.108 0.095" rpy="0 -${PI/2} -${PI/2}"/>
+    <limit effort="1000.0" lower="${(-90+offset_from_limit)*PI/180}"
+      upper="${(135-offset_from_limit)*PI/180}" velocity="${joint_velocity}" />
+    <dynamics damping="${damping}" friction="0.1" />
+  </joint>
+
+  <link name="elbow_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://${package_name}/meshes/rv_3s/visual/elbow.stl" scale="${default_scale}" />
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <material name="ivory"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://${package_name}/meshes/rv_3s/collision/elbow.stl" scale="${default_scale}" />
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="${mass}" />
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0" />
+    </inertial>   
+  </link>
+
+  <joint name="arm_1_to_elbow_joint" type="revolute">
+    <parent link="arm_1_link" />
+    <child link="elbow_link" />
+    <origin xyz="0.245 0 -0.044" rpy="0 0 -${PI/2}" /> <!-- arm 1 should be -90 deg about z axis for straight up 0-position -->
+    <axis xyz="0 0 1" />
+    <dynamics damping="${damping}" friction="0.1" />
+    <limit effort="1000.0" lower="${(-20+offset_from_limit)*PI/180}"
+      upper="${(171-offset_from_limit)*PI/180}" velocity="${joint_velocity}" />
+  </joint>
+
+  <link name="arm_2_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://${package_name}/meshes/rv_3s/visual/arm2.stl" scale="${default_scale}" />
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <material name="ivory"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://${package_name}/meshes/rv_3s/collision/arm2.stl" scale="${default_scale}" />
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="${mass}" />
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0" />
+    </inertial>
+  </link>
+
+  <joint name="elbow_to_arm_2_joint" type="revolute" >
+    <parent link="elbow_link" />
+    <child link="arm_2_link" />
+    <origin xyz="0.135 0.055 -0.064" rpy="${PI/2} 0 ${PI}" />
+    <axis xyz="0 0 1" />
+    <dynamics damping="${damping}" friction="0.1" />
+    <limit effort="1000.0" lower="${(-160+offset_from_limit)*PI/180}"
+      upper="${(160-offset_from_limit)*PI/180}" velocity="${joint_velocity}" />
+  </joint>
+
+  <link name="wrist_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://${package_name}/meshes/rv_3s/visual/wrist.stl" scale="${default_scale}" />
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <material name="ivory"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://${package_name}/meshes/rv_3s/collision/wrist.stl" scale="${default_scale}" />
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="${mass}" />
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0" />
+    </inertial>
+  </link>
+
+  <joint name="arm_2_to_wrist_joint" type="revolute">
+    <parent link="arm_2_link" />
+    <child link="wrist_link" />
+    <axis xyz="0 0 1" />
+    <origin xyz="0 0.037 0.215" rpy="0 -${PI/2} -${PI/2}" />
+    <dynamics damping="${damping}" friction="0.1" />
+    <limit effort="1000.0" lower="${(-120+offset_from_limit)*PI/180}"
+      upper="${(120-offset_from_limit)*PI/180}" velocity="${joint_velocity}" />
+  </joint>
+
+  <link name="end_effector">
+    <visual>
+      <geometry>
+        <mesh filename="package://${package_name}/meshes/rv_3s/visual/end_effector.stl" scale="${default_scale}" />
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <material name="ivory"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://${package_name}/meshes/rv_3s/collision/end_effector.stl" scale="${default_scale}" />
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+    </collision>
+    <inertial>
+      <mass value="${mass}" />
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0" />
+    </inertial>
+  </link>
+
+  <joint name="wrist_to_end_effector_joint" type="revolute">
+    <parent link="wrist_link" />
+    <child link="end_effector" />
+    <axis xyz="0 0 1" />
+    <origin xyz="0.085 0 -0.037" rpy="${PI/2} 0 ${PI/2}" />
+    <dynamics damping="${damping}" friction="0.1" />
+    <limit effort="1000.0" lower="${(-360+offset_from_limit)*PI/180}"
+      upper="${(360-offset_from_limit)*PI/180}" velocity="${joint_velocity}" />
+  </joint>
+<!-- </xacro:macro> -->
+</robot>

@@ -1,0 +1,9 @@
+# Default initial positions for mitsubishi_robot's ros2_control fake system
+initial_positions:
+  base_to_shoulder_joint: 0.0
+  shoulder_to_arm_1_joint: 0.0
+  arm_1_to_elbow_joint: 0.0
+  elbow_to_arm_2_joint: 0.0
+  arm_2_to_wrist_joint: 0.0
+  wrist_to_end_effector_joint: 0.0
+

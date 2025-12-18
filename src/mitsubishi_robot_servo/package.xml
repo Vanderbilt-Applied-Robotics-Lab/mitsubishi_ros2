@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>mitsubishi_robot_servo</name>
+  <version>0.0.0</version>
+  <description>Mitsubishi robot servo implementation, allows for joint and task space control via keyboard and joystick formats</description>
+  <maintainer email="joshua.h.turner@vanderbilt.edu">holden</maintainer>
+  <license>BSD-3-Clause</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- messages and services -->
+  <depend>std_srvs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>moveit_msgs</depend>
+
+  <!-- launch -->
+  <depend>launch</depend>
+  <depend>launch_ros</depend>
+
+  <!-- moveit -->
+  <depend>moveit_servo</depend>
+
+  <!-- custom packages-->
+  <depend>mitsubishi_robot_msgs</depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

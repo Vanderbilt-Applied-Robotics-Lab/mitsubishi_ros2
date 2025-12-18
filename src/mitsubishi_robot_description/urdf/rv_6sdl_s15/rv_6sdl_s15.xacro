@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<robot name="rv_6sdl_s15" xmlns:xacro="http://ros.org/wiki/xacro">
+  <!-- Arguments -->
+  <xacro:arg name="control_name" default="MitsubishiRobot/RobotSystem" />
+  <xacro:arg name="initial_positions_file" default="$(find mitsubishi_robot_description)/urdf/rv_6sdl_s15/initial_positions.yaml" />
+  <xacro:arg name="robot_ip" default="192.168.0.1" />
+  <xacro:arg name="robot_port" default="10000" />
+  <xacro:arg name="control_port" default="10003" />
+  <xacro:arg name="robot_password" default="ARMALABS" />
+  <xacro:arg name="simulation" default="true" />
+
+  <!-- Includes -->
+  <xacro:include filename="rv_6sdl_s15.urdf.xacro" />
+  <xacro:include filename="rv_6sdl_s15.ros2_control.xacro" />
+
+  <!-- <!-1- URDF -1-> -->
+  <!-- <xacro:mitsubishi_robot_urdf /> -->
+
+  <!-- <!-1- ROS2 Control -1-> -->
+  <!-- <xacro:mitsubishi_robot_ros2_control -->
+  <!--   control_name="$(arg control_name)" -->
+  <!--   initial_positions_file="$(arg initial_positions_file)" -->
+  <!--   robot_ip="$(arg robot_ip)" -->
+  <!--   robot_port="$(arg robot_port)" -->
+  <!--   control_port="$(arg control_port)" -->
+  <!--   robot_password="$(arg robot_password)" -->
+  <!--   simulation="$(arg simulation)" -->
+  <!-- /> -->
+</robot>

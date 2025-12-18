@@ -1,0 +1,261 @@
+<?xml version="1.0"?>
+<xacro:macro name="rv_6sdl_s15_urdf" xmlns:xacro="http://ros.org/wiki/xacro">
+  <!-- Constants -->
+  <xacro:property name="PI" value="3.1415926535897931" />
+  <xacro:property name="mass" value="0.1" />
+  <xacro:property name="offset_from_limit" value="5.0" />
+  <xacro:property name="joint_velocity" value="5.0" />
+  <xacro:property name="damping" value="10.0" />
+
+  <!-- Link Definitions -->
+  <link name="world" />
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://mitsubishi_robot_description/meshes/rv_6sdl_s15/visual/base_link.stl"
+          scale="0.001 0.001 0.001" />
+      </geometry>
+      <origin rpy="${PI/2} 0 ${PI/2}" />
+      <material name="ivory">
+        <color rgba="1.0 1.0 ${240/255} 1.0" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh
+          filename="package://mitsubishi_robot_description/meshes/rv_6sdl_s15/collision/base_link.stl"
+          scale="0.001 0.001 0.001" />
+      </geometry>
+      <origin rpy="${PI/2} 0 ${PI/2}" />
+    </collision>
+    <inertial>
+      <mass value="${mass}" />
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0" />
+    </inertial>
+  </link>
+
+  <joint name="base_joint" type="fixed">
+    <parent link="world" />
+    <child link="base_link" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 0 1" />
+  </joint>
+
+  <link name="link_1">
+    <visual>
+      <geometry>
+        <mesh
+          filename="package://mitsubishi_robot_description/meshes/rv_6sdl_s15/visual/link_1.stl"
+          scale="0.001 0.001 0.001" />
+      </geometry>
+      <origin xyz="0 0 0.038" rpy="${PI/2} 0 ${PI/2}" />
+      <material name="ivory">
+        <color rgba="1.0 1.0 ${240/255} 1.0" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh
+          filename="package://mitsubishi_robot_description/meshes/rv_6sdl_s15/collision/link_1.stl"
+          scale="0.001 0.001 0.001" />
+      </geometry>
+      <origin xyz="0 0 0.038" rpy="${PI/2} 0 ${PI/2}" />
+    </collision>
+    <inertial>
+      <mass value="${mass}" />
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0" />
+    </inertial>
+  </link>
+
+  <joint name="j1" type="revolute">
+    <axis xyz="0 0 1" />
+    <limit effort="1000.0" lower="${(-170+offset_from_limit)*PI/180}"
+      upper="${(170-offset_from_limit)*PI/180}" velocity="${joint_velocity}" />
+    <parent link="base_link" />
+    <child link="link_1" />
+    <origin xyz="0 0 0.239" />
+    <dynamics damping="${damping}" friction="0.1" />
+  </joint>
+
+  <link name="link_2">
+    <visual>
+      <geometry>
+        <mesh
+          filename="package://mitsubishi_robot_description/meshes/rv_6sdl_s15/visual/link_2.stl"
+          scale="0.001 0.001 0.001" />
+      </geometry>
+      <origin xyz="0 0 0.1" rpy="0 ${-PI/2} 0" />
+      <material name="ivory">
+        <color rgba="1.0 1.0 ${240/255} 1.0" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh
+          filename="package://mitsubishi_robot_description/meshes/rv_6sdl_s15/collision/link_2.stl"
+          scale="0.001 0.001 0.001" />
+      </geometry>
+      <origin xyz="0 0 0.1" rpy="0 ${-PI/2} 0" />
+    </collision>
+    <inertial>
+      <mass value="${mass}" />
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0" />
+    </inertial>
+  </link>
+
+  <joint name="j2" type="revolute">
+    <axis xyz="0 0 1" />
+    <limit effort="1000.0" lower="${-92*PI/180}" upper="${(135-offset_from_limit)*PI/180}"
+      velocity="${joint_velocity}" />
+    <parent link="link_1" />
+    <child link="link_2" />
+    <origin xyz="0.085 0 0.111" rpy="${PI/2} 0 ${PI}" />
+    <dynamics damping="${damping}" friction="0.1" />
+  </joint>
+
+  <link name="link_3">
+    <visual>
+      <geometry>
+        <mesh
+          filename="package://mitsubishi_robot_description/meshes/rv_6sdl_s15/visual/link_3.stl"
+          scale="0.001 0.001 0.001" />
+      </geometry>
+      <origin xyz="0 0 0.1" rpy="0 ${-PI/2} ${PI}" />
+      <material name="ivory">
+        <color rgba="1.0 1.0 ${240/255} 1.0" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh
+          filename="package://mitsubishi_robot_description/meshes/rv_6sdl_s15/collision/link_3.stl"
+          scale="0.001 0.001 0.001" />
+      </geometry>
+      <origin xyz="0 0 0.1" rpy="0 ${-PI/2} ${PI}" />
+    </collision>
+    <inertial>
+      <mass value="${mass}" />
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0" />
+    </inertial>
+  </link>
+
+  <joint name="j3" type="revolute">
+    <axis xyz="0 0 1" />
+    <limit effort="1000.0" lower="${(-129+offset_from_limit)*PI/180}"
+      upper="${(166-offset_from_limit)*PI/180}" velocity="${joint_velocity}" />
+    <parent link="link_2" />
+    <child link="link_3" />
+    <origin xyz="0 0.380 0" rpy="0 0 ${PI/2}" />
+    <dynamics damping="${damping}" friction="0.1" />
+  </joint>
+
+  <link name="link_4">
+    <visual>
+      <geometry>
+        <mesh
+          filename="package://mitsubishi_robot_description/meshes/rv_6sdl_s15/visual/link_4.stl"
+          scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="ivory">
+        <color rgba="1.0 1.0 ${240/255} 1.0" />
+      </material>
+      <origin xyz="0 0.0 0.08" rpy="0 0 0" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh
+          filename="package://mitsubishi_robot_description/meshes/rv_6sdl_s15/collision/link_4.stl"
+          scale="0.001 0.001 0.001" />
+      </geometry>
+      <origin xyz="0 0.0 0.08" rpy="0 0 0" />
+    </collision>
+    <inertial>
+      <mass value="${mass}" />
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0" />
+    </inertial>
+  </link>
+
+  <joint name="j4" type="revolute">
+    <axis xyz="0 0 1" />
+    <limit effort="1000.0" lower="${(-160+offset_from_limit)*PI/180}"
+      upper="${(160-offset_from_limit)*PI/180}" velocity="${joint_velocity}" />
+    <parent link="link_3" />
+    <child link="link_4" />
+    <origin xyz="0.0 -0.1 0" rpy="0 ${PI/2} 0" />
+    <dynamics damping="${damping}" friction="0.1" />
+  </joint>
+
+  <link name="link_5">
+    <visual>
+      <geometry>
+        <mesh
+          filename="package://mitsubishi_robot_description/meshes/rv_6sdl_s15/visual/link_5.stl"
+          scale="0.001 0.001 0.001" />
+      </geometry>
+      <origin xyz="0 0.0 -0.047" rpy="0 ${PI/2} ${-PI/2}" />
+      <material name="ivory">
+        <color rgba="1.0 1.0 ${240/255} 1.0" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh
+          filename="package://mitsubishi_robot_description/meshes/rv_6sdl_s15/collision/link_5.stl"
+          scale="0.001 0.001 0.001" />
+      </geometry>
+      <origin xyz="0 0.0 -0.047" rpy="0 ${PI/2} ${-PI/2}" />
+    </collision>
+    <inertial>
+      <mass value="${mass}" />
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0" />
+    </inertial>
+  </link>
+
+  <joint name="j5" type="revolute">
+    <axis xyz="0 0 1" />
+    <limit effort="1000.0" lower="${(-110+offset_from_limit)*PI/180}"
+      upper="${(110-offset_from_limit)*PI/180}" velocity="${joint_velocity}" />
+    <parent link="link_4" />
+    <child link="link_5" />
+    <origin xyz="0 0 0.425" rpy="0.0 ${-PI/2} 0" />
+    <dynamics damping="${damping}" friction="0.1" />
+  </joint>
+
+  <link name="end_effector">
+    <inertial>
+      <mass value="${mass}" />
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0" />
+    </inertial>
+  </link>
+
+  <joint name="j6" type="revolute">
+    <axis xyz="0 0 1" />
+    <limit effort="1000.0" lower="${(-360+offset_from_limit)*PI/180}"
+      upper="${(360-offset_from_limit)*PI/180}" velocity="${joint_velocity}" />
+    <parent link="link_5" />
+    <child link="end_effector" />
+    <origin xyz="0.085 0 0" rpy="0 ${PI/2} 0" />
+    <dynamics damping="${damping}" friction="0.1" />
+  </joint>
+</xacro:macro>

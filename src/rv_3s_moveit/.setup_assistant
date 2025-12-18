@@ -1,0 +1,23 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: mitsubishi_robot_description
+    relative_path: urdf/rv_3s/rv_3s.xacro
+  srdf:
+    relative_path: config/rv_3s.srdf
+  package_settings:
+    author_name: Minyi Sun
+    author_email: minyi.sun@vanderbilt.edu
+    generated_timestamp: 1745809668
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+  modified_urdf:
+    xacros:
+      - control_xacro
+  control_xacro:
+    command:
+      - position
+    state:
+      - position

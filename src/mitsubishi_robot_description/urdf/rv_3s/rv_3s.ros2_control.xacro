@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<xacro:macro name="mitsubishi_robot_ros2_control" xmlns:xacro="http://ros.org/wiki/xacro">
+  <!-- Arguments -->
+  <xacro:arg name="control_name" default="MitsubishiRobot/RobotSystem" />
+  <xacro:arg name="initial_positions_file" default="$(find mitsubishi_robot_description)/urdf/rv_3s/initial_positions.yaml" />
+  <xacro:arg name="robot_ip" default="192.168.0.1" />
+  <xacro:arg name="robot_port" default="10000" />
+  <xacro:arg name="control_port" default="10003" />
+  <xacro:arg name="robot_password" default="ARMALABS" />
+  <xacro:arg name="simulation" default="true" />
+
+  <!-- Properties -->
+  <xacro:property name="initial_positions" value="${xacro.load_yaml('$(arg initial_positions_file)')['initial_positions']}" />
+
+  <!-- ROS2 Control -->
+  <ros2_control name="$(arg control_name)" is_async="false" type="system">
+
+    <!-- Hardware specifications -->
+    <hardware>
+      <xacro:if value="$(arg simulation)">
+        <plugin>mock_components/GenericSystem</plugin>
+      </xacro:if>
+      <xacro:unless value="$(arg simulation)">
+        <plugin>MitsubishiRobot/RobotSystem</plugin>
+        <param name="robot_ip">$(arg robot_ip)</param>
+        <param name="robot_port">$(arg robot_port)</param>
+        <param name="control_port">$(arg control_port)</param>
+        <param name="robot_password">$(arg robot_password)</param>
+      </xacro:unless>
+    </hardware>
+
+    <!-- Joint specifications -->
+    <joint name="base_to_shoulder_joint">
+      <command_interface name="position" />
+      <state_interface name="position">
+        <param name="initial_value">${initial_positions['base_to_shoulder_joint']}</param>
+      </state_interface>
+    </joint>
+    <joint name="shoulder_to_arm_1_joint">
+      <command_interface name="position" />
+      <state_interface name="position">
+        <param name="initial_value">${initial_positions['shoulder_to_arm_1_joint']}</param>
+      </state_interface>
+    </joint>
+    <joint name="arm_1_to_elbow_joint">
+      <command_interface name="position" />
+      <state_interface name="position">
+        <param name="initial_value">${initial_positions['arm_1_to_elbow_joint']}</param>
+      </state_interface>
+    </joint>
+    <joint name="elbow_to_arm_2_joint">
+      <command_interface name="position" />
+      <state_interface name="position">
+        <param name="initial_value">${initial_positions['elbow_to_arm_2_joint']}</param>
+      </state_interface>
+    </joint>
+    <joint name="arm_2_to_wrist_joint">
+      <command_interface name="position" />
+      <state_interface name="position">
+        <param name="initial_value">${initial_positions['arm_2_to_wrist_joint']}</param>
+      </state_interface>
+    </joint>
+    <joint name="wrist_to_end_effector_joint">
+      <command_interface name="position" />
+      <state_interface name="position">
+        <param name="initial_value">${initial_positions['wrist_to_end_effector_joint']}</param>
+      </state_interface>
+    </joint>
+
+  </ros2_control>
+</xacro:macro>

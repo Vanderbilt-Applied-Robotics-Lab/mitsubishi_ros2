@@ -1,0 +1,23 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: mitsubishi_robot_description
+    relative_path: urdf/rv_6sdl_s15/rv_6sdl_s15.xacro
+  srdf:
+    relative_path: config/rv_6sdl_s15.srdf
+  package_settings:
+    author_name: Joshua Holden Turner
+    author_email: joshua.h.turner@vanderbilt.edu
+    generated_timestamp: 1745809668
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+  modified_urdf:
+    xacros:
+      - control_xacro
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
