@@ -4,19 +4,19 @@
 
 The following software is required for execution of this ROS2 Humble package
 
-- [ROS2 Iron](https://docs.ros.org/en/humble/Installation.html)
+- [ROS2 Humble](https://docs.ros.org/en/humble/Installation.html)
 - [Git](https://docs.ros.org/en/humble/Installation.html)
 - [Rosdep2](https://zoomadmin.com/HowToInstall/UbuntuPackage/python-rosdep2)
 - [Ubuntu 22.04 Realtime](https://ubuntu.com/blog/real-time-ubuntu-released) *(Optional but recommended)*
 
 ## Setup
 
-1. Source your ROS2 Iron install with the following command
+1. Source your ROS2 Humble install with the following command
 
 > ROS2 only supports `sh`, `bash`, and `zsh` shells by default. If you are using `sh` or `zsh` instead of `bash`, please source the corresponding file as needed
 
 ```bash
-source /opt/ros/iron/setup.bash
+source /opt/ros/humble/setup.bash
 ```
 
 2. Determine a directory/path to install this ROS2 workspace and then clone this repository there with the following command
