@@ -19,19 +19,26 @@ The following software is required for execution of this ROS2 Humble package
 source /opt/ros/humble/setup.bash
 ```
 
-2. Determine a directory/path to install this ROS2 workspace and then clone this repository there with the following command
+2. Create a directory/path to install this ROS2 workspace. Usually: 
+
+```bash
+mkdir -p ~/workspace/mitsubishi_ws/src
+cd ~/workspace/mitsubishi_ws/src
+```
+
+3. Then clone this repository there with the following command
 
 ```bash
 git clone https://github.com/Vanderbilt-Applied-Robotics-Lab/mitsubishi_ros2.git
 ```
 
-3. `cd` into the cloned directory and run the following command to source ROS2 dependencies
+4. `cd` into the cloned directory and run the following command to source ROS2 dependencies
 
 ```bash
 rosdep install --from-paths src --ignore-src -r -y
 ```
 
-4. Build the program by running the following command
+5. Build the program by running the following command
 
 ```bash
 colcon build
