@@ -35,6 +35,7 @@ git clone https://github.com/Vanderbilt-Applied-Robotics-Lab/mitsubishi_ros2.git
 4. `cd` into the cloned directory and run the following command to source ROS2 dependencies
 
 ```bash
+cd ~/workspace/mitsubishi_ws
 rosdep install --from-paths src --ignore-src -r -y
 ```
 
