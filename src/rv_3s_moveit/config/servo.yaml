@@ -1,6 +1,6 @@
 # Parameters for MoveIt2 Servo
 #
-# Author: Joshua Holden Turner
+# Author: Joshua Holden Turner and Garrison Johnston
 
 # Command specs
 publish_period: 0.01
@@ -26,9 +26,10 @@ is_primary_planning_scene_monitor: true
 check_octomap_collisions: false
 
 # MoveIt specs
-ee_frame: end_effector
-planning_frame: world
+ee_frame_name: end_effector
+planning_frame: base_link
 move_group_name: rv_3s_arm
+robot_link_command_frame: base_link
 
 # Singularity handling
 lower_singularity_threshold: 100000.0
