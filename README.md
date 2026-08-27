@@ -22,8 +22,8 @@ source /opt/ros/humble/setup.bash
 2. Create a directory/path to install this ROS2 workspace. Usually: 
 
 ```bash
-mkdir -p ~/workspace/mitsubishi_ws/src
-cd ~/workspace/mitsubishi_ws/src
+mkdir -p ~/workspaces/mitsubishi_ws/src
+cd ~/workspaces/mitsubishi_ws/src
 ```
 
 3. Then clone this repository there with the following command
@@ -35,7 +35,7 @@ git clone https://github.com/Vanderbilt-Applied-Robotics-Lab/mitsubishi_ros2.git
 4. `cd` into the cloned directory and run the following command to source ROS2 dependencies
 
 ```bash
-cd ~/workspace/mitsubishi_ws
+cd ~/workspaces/mitsubishi_ws
 rosdep install --from-paths src --ignore-src -r -y
 ```
 
